@@ -28,21 +28,20 @@ class RefreshEachCryptoMetaDataCommand extends Command
      */
     public function handle()
     {
-        // $cryptoCurrencies = CryptoCurrency::get();
-        // foreach ($cryptoCurrencies as $cryptoCurrency) {
-        //     $currencyMeta = resolve(ApiHelper::class)->getCurrencyMeta($cryptoCurrency->coinmarketplace_id);
-        //     foreach ($currencyMeta['data'] as $key => $data) {
-        //         $cryptoCurrency->metaData()->updateOrCreate(
-        //             ['id' => $cryptoCurrency->metaData->id],
-        //             [
-        //                 'logo' => $data['logo'],
-        //                 'description' => $data['description'],
-        //                 'date_added' => Carbon::parse($data['date_added']),
-        //                 'date_launched' => Carbon::parse($data['date_launched']),
-        //             ]
-        //         );
-        //     }
-        // }
-        
+        $cryptoCurrencies = CryptoCurrency::get();
+        foreach ($cryptoCurrencies as $cryptoCurrency) {
+            $currencyMeta = resolve(ApiHelper::class)->getCurrencyMeta($cryptoCurrency->coinmarketplace_id);
+            foreach ($currencyMeta['data'] as $key => $data) {
+                $cryptoCurrency->metaData()->updateOrCreate(
+                    ['id' => $cryptoCurrency->metaData->id],
+                    [
+                        'logo' => $data['logo'],
+                        'description' => $data['description'],
+                        'date_added' => Carbon::parse($data['date_added']),
+                        'date_launched' => Carbon::parse($data['date_launched']),
+                    ]
+                );
+            }
+        }
     }
 }
