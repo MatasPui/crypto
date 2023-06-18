@@ -17,9 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // TODO: CHANGE TO DAILY
-        $schedule->command('refresh:crypto')->everyMinute();
-        $schedule->command('update:cryptoMetaData')->everyMinute();
+        $schedule->command('refresh:crypto')->daily();
+        $schedule->command('update:cryptoMetaData')->daily();
     }
 
     /**
